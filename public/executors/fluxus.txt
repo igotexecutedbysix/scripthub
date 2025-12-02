@@ -1,0 +1,11 @@
+-- Fluxus Executor
+-- Download link: https://fluxus.app
+-- This is a placeholder for Fluxus executor information
+
+Fluxus is a modern Roblox script executor offering:
+- Sleek and intuitive UI
+- Fast execution speed
+- Regular feature updates
+- Community-driven development
+
+To use: Download from fluxus.app and follow their setup instructions

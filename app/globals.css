@@ -113,6 +113,24 @@ body {
   }
 }
 
+/* Added fade-in animation for page transitions */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
 .glow-text {
   animation: glow-pulse 2s ease-in-out infinite;
 }
