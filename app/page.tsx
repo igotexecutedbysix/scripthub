@@ -33,7 +33,7 @@ export default function Home() {
       category: "Tools",
       verified: true,
       description: "Lorum Ipsum.",
-      filename: 3.txt",
+      filename: "3.txt",
     },
     {
       id: 4,
