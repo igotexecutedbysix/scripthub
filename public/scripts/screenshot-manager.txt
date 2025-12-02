@@ -1,3 +1,0 @@
--- Screenshot Manager Script
--- Captures and organizes screenshots automatically
-console.log("Screenshot Manager loaded successfully")
