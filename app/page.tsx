@@ -15,7 +15,7 @@ export default function Home() {
     {
       id: 1,
       name: "Infinite Yield",
-      category: "Utility",
+      category: "Hacking",
       verified: true,
       description: "Script with lots of functionality.",
       filename: "infiniteyield.txt",
@@ -23,12 +23,12 @@ export default function Home() {
     },
     {
       id: 2,
-      name: "Example 2",
-      category: "Productivity",
+      name: "Miami Streets DK Money/Spoofer/Gun script",
+      category: "Modding",
       verified: true,
-      description: "Lorum Ipsum.",
+      description: "This is a script for the roblox game Miami Streets",
       filename: "2.txt",
-      tags: ["placeholder", "placeholder", "placeholder"],
+      tags: ["miami streets", "roblox",],
     },
     {
       id: 3,
