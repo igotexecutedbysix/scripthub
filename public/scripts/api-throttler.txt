@@ -1,0 +1,3 @@
+-- API Throttler Script
+-- Rate limits and queues API requests for testing
+console.log("API Throttler loaded successfully")

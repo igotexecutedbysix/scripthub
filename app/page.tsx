@@ -8,8 +8,8 @@ import { useState } from "react"
 export default function Home() {
   const [currentView, setCurrentView] = useState("home")
 
-  // Each script object should have: id, name, category, verified (boolean), description
-  // Example: { id: 5, name: "Your Script Name", category: "Category", verified: true, description: "What it does" }
+  // Each script object should have: id, name, category, verified (boolean), description, filename
+  // Example: { id: 5, name: "Your Script Name", category: "Category", verified: true, description: "What it does", filename: "script-name.txt" }
   const exampleScripts = [
     {
       id: 1,
@@ -17,6 +17,7 @@ export default function Home() {
       category: "Utility",
       verified: true,
       description: "Precision mouse automation with advanced timing controls",
+      filename: "auto-clicker-pro.txt",
     },
     {
       id: 2,
@@ -24,6 +25,7 @@ export default function Home() {
       category: "Productivity",
       verified: true,
       description: "Intelligent form completion for repetitive data entry",
+      filename: "form-filler.txt",
     },
     {
       id: 3,
@@ -31,6 +33,7 @@ export default function Home() {
       category: "Tools",
       verified: true,
       description: "Batch screenshot capture with instant organization",
+      filename: "screenshot-manager.txt",
     },
     {
       id: 4,
@@ -38,8 +41,18 @@ export default function Home() {
       category: "Developer",
       verified: true,
       description: "Rate limiting and request queueing for API testing",
+      filename: "api-throttler.txt",
     },
   ]
+
+  const handleDownload = (filename) => {
+    const link = document.createElement("a")
+    link.href = `/scripts/${filename}`
+    link.download = filename
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-background/95 relative overflow-hidden font-sans">
@@ -148,6 +161,7 @@ export default function Home() {
                   <div className="flex justify-end">
                     <Button
                       size="sm"
+                      onClick={() => handleDownload(script.filename)}
                       className="bg-gradient-to-r from-secondary to-primary hover:shadow-lg hover:shadow-secondary/50 gap-2"
                     >
                       <Download className="w-4 h-4" />
