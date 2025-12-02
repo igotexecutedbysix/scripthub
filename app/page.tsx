@@ -13,10 +13,10 @@ export default function Home() {
   const exampleScripts = [
     {
       id: 1,
-      name: "Auto Clicker Pro",
+      name: "Infinite Yield",
       category: "Utility",
       verified: true,
-      description: "Precision mouse automation with advanced timing controls",
+      description: "Script with lots of functionality.",
       filename: "auto-clicker-pro.txt",
     },
     {
