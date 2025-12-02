@@ -1,3 +1,0 @@
--- Form Filler Script
--- Automatically fills common web forms with predefined data
-console.log("Form Filler loaded successfully")
