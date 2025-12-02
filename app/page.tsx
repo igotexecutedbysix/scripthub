@@ -2,13 +2,14 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Download, Gamepad2, CheckCircle, Eye } from "lucide-react"
+import { Download, Gamepad2, CheckCircle, Eye, Search } from "lucide-react"
 import { useState } from "react"
 
 export default function Home() {
   const [currentView, setCurrentView] = useState("home")
   const [viewingScript, setViewingScript] = useState(null)
   const [scriptContent, setScriptContent] = useState("")
+  const [searchQuery, setSearchQuery] = useState("")
 
   const exampleScripts = [
     {
@@ -18,6 +19,7 @@ export default function Home() {
       verified: true,
       description: "Script with lots of functionality.",
       filename: "infiniteyield.txt",
+      tags: ["roblox", "admin", "utility", "general"],
     },
     {
       id: 2,
@@ -26,6 +28,7 @@ export default function Home() {
       verified: true,
       description: "Lorum Ipsum.",
       filename: "2.txt",
+      tags: ["automation", "productivity", "web"],
     },
     {
       id: 3,
@@ -34,6 +37,7 @@ export default function Home() {
       verified: true,
       description: "Lorum Ipsum.",
       filename: "3.txt",
+      tags: ["screenshot", "tools", "media"],
     },
     {
       id: 4,
@@ -42,8 +46,14 @@ export default function Home() {
       verified: true,
       description: "Lorum Ipsum.",
       filename: "4.txt",
+      tags: ["developer", "api", "testing"],
     },
   ]
+
+  const filteredScripts = exampleScripts.filter((script) => {
+    const query = searchQuery.toLowerCase()
+    return script.name.toLowerCase().includes(query) || script.tags.some((tag) => tag.toLowerCase().includes(query))
+  })
 
   const handleDownload = (filename) => {
     const link = document.createElement("a")
@@ -141,54 +151,86 @@ export default function Home() {
           <h2 className="text-4xl font-black mb-12 text-center bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
             Available Scripts
           </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {exampleScripts.map((script) => (
-              <Card
-                key={script.id}
-                className="cyber-border border-primary/40 bg-card/40 backdrop-blur hover:border-secondary/60 transition-all duration-300 group"
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <CardTitle className="text-lg">{script.name}</CardTitle>
-                        {script.verified && (
-                          <CheckCircle className="w-5 h-5 text-secondary fill-secondary" title="Verified Script" />
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/20 text-primary">
-                          {script.category}
-                        </span>
+          <div className="mb-8 flex items-center gap-2 bg-card/40 border border-primary/30 rounded-lg px-4 py-2 backdrop-blur">
+            <Search className="w-5 h-5 text-primary/60" />
+            <input
+              type="text"
+              placeholder="Search by script name or tag (e.g., 'roblox', 'automation')"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 bg-transparent outline-none text-foreground placeholder-foreground/50"
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery("")} className="text-foreground/60 hover:text-foreground ml-2">
+                ×
+              </button>
+            )}
+          </div>
+
+          {filteredScripts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-foreground/60 text-lg">No scripts found matching "{searchQuery}"</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {filteredScripts.map((script) => (
+                <Card
+                  key={script.id}
+                  className="cyber-border border-primary/40 bg-card/40 backdrop-blur hover:border-secondary/60 transition-all duration-300 group"
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <CardTitle className="text-lg">{script.name}</CardTitle>
+                          {script.verified && (
+                            <CheckCircle className="w-5 h-5 text-secondary fill-secondary" title="Verified Script" />
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/20 text-primary">
+                            {script.category}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {script.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-xs px-2 py-1 rounded bg-secondary/20 text-secondary border border-secondary/40 cursor-pointer hover:bg-secondary/30 transition-colors"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <p className="text-foreground/70 text-sm">{script.description}</p>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-end gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleViewRaw(script.filename, script.name)}
-                      className="border-accent/50 hover:border-accent gap-2"
-                    >
-                      <Eye className="w-4 h-4" />
-                      RAW
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={() => handleDownload(script.filename)}
-                      className="bg-gradient-to-r from-secondary to-primary hover:shadow-lg hover:shadow-secondary/50 gap-2"
-                    >
-                      <Download className="w-4 h-4" />
-                      Download
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    <p className="text-foreground/70 text-sm">{script.description}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleViewRaw(script.filename, script.name)}
+                        className="border-accent/50 hover:border-accent gap-2"
+                      >
+                        <Eye className="w-4 h-4" />
+                        RAW
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => handleDownload(script.filename)}
+                        className="bg-gradient-to-r from-secondary to-primary hover:shadow-lg hover:shadow-secondary/50 gap-2"
+                      >
+                        <Download className="w-4 h-4" />
+                        Download
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
