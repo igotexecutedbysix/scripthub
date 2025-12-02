@@ -1,1 +1,1 @@
-NOT AVAILABLE RIGHT NOW.
+loadstring(game:HttpGet("https://rawscripts.net/raw/Miami-Streets-dk-hub-67921"))()
