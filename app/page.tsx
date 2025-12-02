@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Download, Gamepad2, CheckCircle } from "lucide-react"
+import { Download, Gamepad2, CheckCircle, Eye } from "lucide-react"
 import { useState } from "react"
 
 export default function Home() {
   const [currentView, setCurrentView] = useState("home")
+  const [viewingScript, setViewingScript] = useState(null)
+  const [scriptContent, setScriptContent] = useState("")
 
-  // Each script object should have: id, name, category, verified (boolean), description, filename
-  // Example: { id: 5, name: "Your Script Name", category: "Category", verified: true, description: "What it does", filename: "script-name.txt" }
   const exampleScripts = [
     {
       id: 1,
@@ -54,9 +54,20 @@ export default function Home() {
     document.body.removeChild(link)
   }
 
+  const handleViewRaw = async (filename, scriptName) => {
+    try {
+      const response = await fetch(`/scripts/${filename}`)
+      const content = await response.text()
+      setScriptContent(content)
+      setViewingScript(scriptName)
+    } catch (error) {
+      console.error("Error fetching script:", error)
+      setScriptContent("Error loading script content")
+    }
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-background/95 relative overflow-hidden font-sans">
-      {/* Animated Background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
         <div
@@ -69,7 +80,6 @@ export default function Home() {
         ></div>
       </div>
 
-      {/* Navigation */}
       <nav className="relative z-50 border-b border-primary/30 backdrop-blur-md bg-background/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <button
@@ -104,7 +114,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Home View */}
       {currentView === "home" && (
         <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="text-center space-y-8">
@@ -127,7 +136,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* Scripts View */}
       {currentView === "scripts" && (
         <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <h2 className="text-4xl font-black mb-12 text-center bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
@@ -158,7 +166,16 @@ export default function Home() {
                   <p className="text-foreground/70 text-sm">{script.description}</p>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex justify-end">
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleViewRaw(script.filename, script.name)}
+                      className="border-accent/50 hover:border-accent gap-2"
+                    >
+                      <Eye className="w-4 h-4" />
+                      RAW
+                    </Button>
                     <Button
                       size="sm"
                       onClick={() => handleDownload(script.filename)}
@@ -175,7 +192,41 @@ export default function Home() {
         </section>
       )}
 
-      {/* Footer */}
+      {viewingScript && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur z-50 flex items-center justify-center p-4">
+          <div className="bg-card border border-primary/50 rounded-lg max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-6 border-b border-primary/30">
+              <h3 className="text-xl font-bold text-primary">{viewingScript}</h3>
+              <button
+                onClick={() => setViewingScript(null)}
+                className="text-foreground/60 hover:text-foreground text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            <div className="overflow-auto flex-1 p-6">
+              <pre className="bg-background/50 rounded p-4 text-sm text-foreground/80 font-mono whitespace-pre-wrap break-words border border-primary/20">
+                {scriptContent}
+              </pre>
+            </div>
+            <div className="flex gap-2 p-6 border-t border-primary/30 justify-end">
+              <Button variant="outline" onClick={() => setViewingScript(null)} className="border-foreground/20">
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  navigator.clipboard.writeText(scriptContent)
+                  setViewingScript(null)
+                }}
+                className="bg-gradient-to-r from-secondary to-primary"
+              >
+                Copy & Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <footer className="relative z-10 border-t border-primary/20 mt-20 bg-background/80 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-foreground/60 text-sm">
           <p>&copy; 2025 Nark's Script Hub.</p>
