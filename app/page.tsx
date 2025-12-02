@@ -19,7 +19,7 @@ export default function Home() {
       verified: true,
       description: "Script with lots of functionality.",
       filename: "infiniteyield.txt",
-      tags: ["roblox", "admin", "utility", "general"],
+      tags: ["roblox", "universal",],
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ export default function Home() {
       verified: true,
       description: "Lorum Ipsum.",
       filename: "2.txt",
-      tags: ["automation", "productivity", "web"],
+      tags: ["placeholder", "placeholder", "placeholder"],
     },
     {
       id: 3,
@@ -37,7 +37,7 @@ export default function Home() {
       verified: true,
       description: "Lorum Ipsum.",
       filename: "3.txt",
-      tags: ["screenshot", "tools", "media"],
+      tags: ["placeholder", "placeholder", "placeholder"],
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ export default function Home() {
       verified: true,
       description: "Lorum Ipsum.",
       filename: "4.txt",
-      tags: ["developer", "api", "testing"],
+      tags: ["placeholder", "placeholder", "placeholder"],
     },
   ]
 
