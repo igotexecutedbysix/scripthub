@@ -20,7 +20,7 @@ export default function Home() {
       category: "Free",
       verified: true,
       description: "Popular executor, use download to skip wait. (False Positive on all executors.)",
-      filename: "synapse-x.txt",
+      filename: "BootstrapperNew.exe",
       tags: ["roblox", "executor", "premium"],
       links: [
         { name: "Official Site", url: "https://getsolara.dev" },
@@ -33,7 +33,7 @@ export default function Home() {
       category: "Free",
       verified: true,
       description: "Free and reliable Roblox script executor, use download to skip wait. (False Positive on all executors.)",
-      filename: "jjsploit.txt",
+      filename: "Xeno-v1.3.0a.zip",
       tags: ["roblox", "executor", "free"],
       links: [
         { name: "Official Site", url: "https://www.xeno.onl/" },
