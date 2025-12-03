@@ -32,7 +32,8 @@ export default function Home() {
       name: " Xeno",
       category: "Free",
       verified: true,
-      description: "Free and reliable Roblox script executor, use download to skip wait. (False Positive on all executors.)",
+      description:
+        "Free and reliable Roblox script executor, use download to skip wait. (False Positive on all executors.)",
       filename: "Xeno-v1.3.0a.zip",
       tags: ["roblox", "executor", "free"],
       links: [
@@ -152,7 +153,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-background/95 relative overflow-hidden font-sans">
+    <main className="min-h-screen bg-gradient-to-b from-background via-background to-background/95 relative overflow-hidden font-sans flex flex-col">
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
         <div
@@ -207,7 +208,9 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className={`transition-opacity duration-500 ${currentView ? "opacity-100" : "opacity-0"}`}>
+      <div
+        className={`transition-opacity duration-500 ${currentView ? "opacity-100" : "opacity-0"} flex-1 flex flex-col`}
+      >
         {currentView === "home" && (
           <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 animate-in fade-in duration-500">
             <div className="text-center space-y-8">
@@ -501,9 +504,9 @@ export default function Home() {
         </div>
       )}
 
-      <footer className="relative z-10 border-t border-primary/20 mt-56 bg-background/80 backdrop-blur">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-foreground/60 text-sm">
-          <p>&copy; 2025 Nark's Script Hub.</p>
+      <footer className="relative z-10 border-t border-primary/20 bg-background/50 backdrop-blur-md py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-foreground/50 text-sm">
+          © 2025 Nark's Script Hub.
         </div>
       </footer>
     </main>
